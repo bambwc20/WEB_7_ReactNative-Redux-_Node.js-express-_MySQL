@@ -19,7 +19,10 @@ export const reducer = (state = initState, action) => {
       return { ...state, IsLoading: true };
 
     case STORE_DATAS:
-      return { ...state, community1_datas: action.community1_datas };
+      return {
+        ...state,
+        community1_datas: action.community1_datas,
+      };
 
     case CLEAR_DATAS:
       return { ...state, community1_datas: null };

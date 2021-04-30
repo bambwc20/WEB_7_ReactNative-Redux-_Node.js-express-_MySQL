@@ -20,7 +20,6 @@ import {
 } from "../../Redux/action";
 
 const DetailsScreen1 = (props) => {
-  console.log("랜더1");
   const getData = async () => {
     try {
       return await axios.get("https://bambwc20.loca.lt/api/topics");

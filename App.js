@@ -3,89 +3,14 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "./Components/MainScreen/HomeScreen";
-import Community_1 from "./Components/CommunityScreen/Community_1";
-import CreateTopic from "./Components/CRUD_File/CreateTopic";
-import ReadDetailTopic from "./Components/CRUD_File/ReadDetailTopic";
-import { createStackNavigator } from "@react-navigation/stack";
-import { View, Text, Alert } from "react-native";
-import { Button } from "react-native-elements";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { reducer } from "./Redux/reducer";
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
+import HomeStackScreen from "./Components/StackScreen/HomeStackScreen";
+import SettingStackScreen from "./Components/StackScreen/SettingStackScreen";
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
-
-function HomeStackScreen() {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: "#f4511e",
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          fontWeight: "bold",
-        },
-      }}
-    >
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          title: "WEB7 Community",
-        }}
-      />
-      <Stack.Screen
-        name="Details"
-        component={Community_1}
-        options={(props) => ({
-          title: "WEB Board",
-          headerRight: () => {
-            const { navigation } = props;
-            return (
-              <Button
-                onPress={() => navigation.navigate("Create Topic")}
-                type="clear"
-                icon={<Icon name="pencil" size={30} color="white" />}
-              />
-            );
-          },
-        })}
-      />
-      <Stack.Screen
-        name="Create Topic"
-        component={CreateTopic}
-        options={{
-          title: "Create Topic",
-        }}
-      />
-      <Stack.Screen
-        name="Read Detail Topic"
-        component={ReadDetailTopic}
-        options={{
-          title: "",
-          headerStyle: {
-            backgroundColor: "white",
-          },
-          headerTintColor: "black",
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings!</Text>
-      <Text>This page only watch!</Text>
-    </View>
-  );
-}
 
 const store = createStore(
   combineReducers({
@@ -125,7 +50,7 @@ export default function App() {
           }}
         >
           <Tab.Screen name="Home" component={HomeStackScreen} />
-          <Tab.Screen name="Settings" component={SettingsScreen} />
+          <Tab.Screen name="Settings" component={SettingStackScreen} />
         </Tab.Navigator>
       </NavigationContainer>
     </Provider>

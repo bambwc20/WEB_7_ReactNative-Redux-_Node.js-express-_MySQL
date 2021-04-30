@@ -18,10 +18,15 @@ function WriteTopics({ navigation }) {
       <TextInput
         style={styles.input1}
         placeholder="title"
-        onChangeText={(title) => setTitle(title)}
-        defaultValue={title}
+        onChangeText={(title) => {
+          setTitle(title);
+          navigation.navigate("Create Topic", {
+            title,
+          });
+        }}
+        value={title}
+        numberOfLines={1}
         // multiline={true}
-
         // placeholder="Email"
         // placeholderTextColor="#9a73ef"
         // autoCapitalize="none"
@@ -29,12 +34,17 @@ function WriteTopics({ navigation }) {
       <TextInput
         style={styles.input2}
         placeholder="description"
-        onChangeText={(desc) => setDesc(desc)}
-        defaultValue={desc}
+        maxLength={240}
         multiline={true}
-      >
-        {/* <Text style={styles.input2}>asd</Text> */}
-      </TextInput>
+        numberOfLines={7}
+        onChangeText={(desc) => {
+          setDesc(desc);
+          navigation.navigate("Create Topic", {
+            desc,
+          });
+        }}
+        value={desc}
+      />
     </View>
   );
 }
@@ -62,12 +72,14 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // paddingHorizontal: 10,
     fontSize: 20,
-    alignContent: "flex-start",
+    // alignContent: "flex-start",
     margin: 10,
     // marginVertical: 20,
     // paddingTop: 0,
     // paddingBottom: 0,
     textAlignVertical: "top",
+    // textAlign: "center",
+    // backgroundColor: "#dadada",
   },
   submitButton: {
     backgroundColor: "#7a42f4",
