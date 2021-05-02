@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Text,
@@ -8,10 +8,22 @@ import {
   Alert,
   TextInput,
 } from "react-native";
+import { connect } from "react-redux";
 
-function CreateTopic({ navigation }) {
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
+function UpdateTopic(props) {
+  const { navigation, route, community1_datas } = props;
+  const id = route.params?.id;
+  const dataObject = community1_datas.find((data) => data.id === id);
+
+  const [title, setTitle] = useState(dataObject.title);
+  const [desc, setDesc] = useState(dataObject.description);
+
+  useEffect(() => {
+    navigation.navigate("Update Topic", {
+      title,
+      desc,
+    });
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -20,7 +32,7 @@ function CreateTopic({ navigation }) {
         placeholder="title"
         onChangeText={(title) => {
           setTitle(title);
-          navigation.navigate("Create Topic", {
+          navigation.navigate("Update Topic", {
             title,
           });
         }}
@@ -39,7 +51,7 @@ function CreateTopic({ navigation }) {
         numberOfLines={7}
         onChangeText={(desc) => {
           setDesc(desc);
-          navigation.navigate("Create Topic", {
+          navigation.navigate("Update Topic", {
             desc,
           });
         }}
@@ -92,4 +104,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateTopic;
+const mapStateToProps = (state) => {
+  return {
+    community1_datas: state.reducer.community1_datas,
+  };
+};
+
+export default connect(mapStateToProps)(UpdateTopic);

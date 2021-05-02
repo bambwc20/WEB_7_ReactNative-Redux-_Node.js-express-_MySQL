@@ -18,6 +18,7 @@ import {
   STORE_DATAS,
   CLEAR_DATAS,
 } from "../../Redux/action";
+import Spinner from "react-native-loading-spinner-overlay";
 
 const DetailsScreen1 = (props) => {
   const getData = async () => {
@@ -45,12 +46,13 @@ const DetailsScreen1 = (props) => {
 
   return (
     <>
+      <Spinner
+        visible={props.IsLoading}
+        textContent={"Loading..."}
+        textStyle={{ color: "black" }}
+      />
       {props.IsLoading === true ? (
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <Text>Loading</Text>
-        </View>
+        <View></View>
       ) : (
         <SafeAreaView style={styles.container}>
           <FlatList
@@ -58,6 +60,7 @@ const DetailsScreen1 = (props) => {
             renderItem={({ item }) => {
               return (
                 <ReadTopic
+                  id={item.id}
                   title={item.title}
                   desc={item.description}
                   created={item.created}
