@@ -16,12 +16,10 @@ import {
   UpdateTopicOfDB,
 } from "../../Redux/action";
 import OptionsMenu from "react-native-option-menu";
-import Spinner from "react-native-loading-spinner-overlay";
 
 const Stack = createStackNavigator();
 
 function HomeStackScreen(props) {
-  const [LoadSpinner, setLoadSpinner] = React.useState(false);
   const { CraeteDB, DeleteDB, UpdateDB } = props;
 
   return (
@@ -91,11 +89,6 @@ function HomeStackScreen(props) {
 
             return (
               <View style={{ margin: 20 }}>
-                <Spinner
-                  visible={LoadSpinner}
-                  textContent={"Loading..."}
-                  textStyle={{ color: "black" }}
-                />
                 <OptionsMenu
                   customButton={
                     <Icon name="ellipsis-v" size={30} color="black" />
@@ -125,20 +118,13 @@ function HomeStackScreen(props) {
 
             return (
               <>
-                <Spinner
-                  visible={LoadSpinner}
-                  textContent={"Loading..."}
-                  textStyle={{ color: "black" }}
-                />
                 <Button
                   title="Write"
                   type="clear"
                   onPress={() => {
                     switch (title !== undefined && desc !== undefined) {
                       case true:
-                        setLoadSpinner(true);
                         CraeteDB(title, desc, (redirectId) => {
-                          setLoadSpinner(false);
                           navigation.goBack();
                           // navigation.navigate("Read Detail Topic", {
                           //   id: redirectId,
@@ -184,20 +170,13 @@ function HomeStackScreen(props) {
             // console.log(desc);
             return (
               <>
-                <Spinner
-                  visible={LoadSpinner}
-                  textContent={"Loading..."}
-                  textStyle={{ color: "black" }}
-                />
                 <Button
                   title="Update"
                   type="clear"
                   onPress={() => {
                     switch (title !== "" && desc !== "") {
                       case true:
-                        setLoadSpinner(true);
                         UpdateDB(id, title, desc, () => {
-                          setLoadSpinner(false);
                           navigation.goBack();
                         });
                         break;
