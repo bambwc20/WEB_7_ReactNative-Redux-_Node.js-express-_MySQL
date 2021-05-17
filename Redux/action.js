@@ -80,5 +80,3 @@ export const UpdateTopicOfDB =
         console.log(err);
       });
   };
-
-//action 모음
